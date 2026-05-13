@@ -551,7 +551,7 @@ def train_universal_pca(training_dir, config=None, seed=None, progress_callback=
     patch_bank = {name: [] for name in config["channel_names"]}
     max_patches = config.get("max_patches_per_channel", None)
     use_all_patches = max_patches in (None, 0, "all", "ALL")
-    rng = np.random.default_rng(seed) if seed is not None else None
+    rng = np.random.default_rng(seed if seed is not None else config.get("random_seed", 0))
     per_image_patch_cap = None
     if not use_all_patches:
         per_image_patch_cap = max(1, int(np.ceil(int(max_patches) / len(paths))))
